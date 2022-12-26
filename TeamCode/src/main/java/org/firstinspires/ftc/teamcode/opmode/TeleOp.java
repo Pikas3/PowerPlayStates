@@ -1,6 +1,5 @@
 //Imports
-package org.firstinspires.ftc.teamcode.opmode.teleop;
-
+package org.firstinspires.ftc.teamcode.opmode;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -69,6 +68,7 @@ public class TeleOp extends LinearOpMode {
         armup = true;
         robot.turret.MAX_POWER = 1;
         robotMode = robotMode.NORMAL;
+        double TurretPower = gamepad2.right_stick_x;
 
 //Drivetrain
         while (!isStopRequested() && opModeIsActive()) {
@@ -84,16 +84,30 @@ public class TeleOp extends LinearOpMode {
                     )
             );
 
-//Slow-Mode
+            //Slow-Mode
             if (gamepad1.right_bumper == true) {
                 dtspeed = 0.4;
             } else{
                 dtspeed = 1;
             }
 
+            //Vertical Slides Manual Control
+            if (gamepad2.left_stick_y > 0.5) {
+                robot.lift.setTargetHeight(robot.lift.getCurrentHeight() + 10);
+            } else if (gamepad2.left_stick_y < -0.5) {
+                robot.lift.setTargetHeight(robot.lift.getCurrentHeight() - 10);
+            }
 
+            //Turret Manual Control
+            if (canTurn = true) {
+                if (TurretPower > 0.5) {
+                    robot.turret.setTargetAngle(robot.turret.getCurrentAngle() - turretaddition);
+                } else if (TurretPower < -0.5) {
+                    robot.turret.setTargetAngle(robot.turret.getCurrentAngle() + turretaddition);
+                }
+            }
 
-           switch(robotMode) {
+            switch(robotMode) {
                case NORMAL:
                    //Switching Modes
                    if (timer.milliseconds() > 500) {
@@ -124,17 +138,6 @@ public class TeleOp extends LinearOpMode {
                        }
                    }
 
-
-    //Turret Manual Control
-                   double TurretPower = gamepad2.right_stick_x;
-                   if (canTurn = true) {
-                       if (TurretPower > 0.5) {
-                           robot.turret.setTargetAngle(robot.turret.getCurrentAngle() - turretaddition);
-                       } else if (TurretPower < -0.5) {
-                           robot.turret.setTargetAngle(robot.turret.getCurrentAngle() + turretaddition);
-                       }
-                   }
-
     //Horizontal Slides Extend/Retract
                    if (robotState == robotState.LIFTED && gamepad2.right_bumper && horizontalpos == "middle") {
                        robot.lift.setHorizontalPosition(horizontalextended);
@@ -151,13 +154,6 @@ public class TeleOp extends LinearOpMode {
                    } else if (robotState == robotState.LIFTED && gamepad2.left_bumper && liftedpos == "dropped") {
                        robot.lift.setTargetHeight(robot.lift.getCurrentHeight() + droppedvalue);
                        horizontalpos = "lifted";
-                   }
-
-    //Vertical Slides Manual Control
-                   if (gamepad2.left_stick_y > 0.5) {
-                       robot.lift.setTargetHeight(robot.lift.getCurrentHeight() + 10);
-                   } else if (gamepad2.left_stick_y < -0.5) {
-                       robot.lift.setTargetHeight(robot.lift.getCurrentHeight() - 10);
                    }
 
     //Turret Presets
@@ -374,15 +370,6 @@ public class TeleOp extends LinearOpMode {
 
 
 
-                   //Turret Manual Control
-                   double TurretPower = gamepad2.right_stick_x;
-                   if (canTurn = true) {
-                       if (TurretPower > 0.5) {
-                           robot.turret.setTargetAngle(robot.turret.getCurrentAngle() - turretaddition);
-                       } else if (TurretPower < -0.5) {
-                           robot.turret.setTargetAngle(robot.turret.getCurrentAngle() + turretaddition);
-                       }
-                   }
 
                    //Horizontal Slides Extend/Retract
                    if (robotState == robotState.LIFTED && gamepad2.right_bumper && horizontalpos == "middle") {
@@ -409,13 +396,6 @@ public class TeleOp extends LinearOpMode {
                    } else if (robotState == robotState.LIFTED && gamepad2.left_bumper && liftedpos == "dropped") {
                        robot.lift.setTargetHeight(robot.lift.getCurrentHeight() + droppedvalue);
                        horizontalpos = "lifted";
-                   }
-
-                   //Vertical Slides Manual Control
-                   if (gamepad2.left_stick_y > 0.5) {
-                       robot.lift.setTargetHeight(robot.lift.getCurrentHeight() + 10);
-                   } else if (gamepad2.left_stick_y < -0.5) {
-                       robot.lift.setTargetHeight(robot.lift.getCurrentHeight() - 10);
                    }
 
                    //Turret Presets
