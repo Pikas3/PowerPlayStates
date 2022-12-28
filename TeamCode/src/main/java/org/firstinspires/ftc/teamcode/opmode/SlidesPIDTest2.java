@@ -12,7 +12,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @Config
 @TeleOp
-public class SlidesPIDTest2 extends LinearOpMode{
+public class
+SlidesPIDTest2 extends LinearOpMode{
     private Robot robot;
     private ElapsedTime timer;
     public enum Height {

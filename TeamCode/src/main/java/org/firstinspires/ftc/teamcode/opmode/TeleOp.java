@@ -19,26 +19,27 @@ public class TeleOp extends LinearOpMode {
     private boolean canTurn = false;
     double turretaddition = 10;
     double dtspeed = 1;
-    public double up = 1000;
-    public double mid = 500;
-    public double low = 200;
+    public double up = 1400;
+    public double mid = 1000;
+    public double low = 700;
     public double ground = 0;
     public double idle = 200;
-    public double intaking = 0;
+    public double intaking = 30;
     private double front = 0;
     private double back = 660;
     private double right = 330;
     private double left = -330;
-    private double droppedvalue = 300;
+    private double droppedvalue = 150;
     private boolean armup = true;
     private boolean lowheight = false;
-    private double horizontalback = 0.3;
-    private double horizontallifted = 0.4;
-    private double horizontalmiddle = 0.6;
+    private double horizontalback = 0.4;
+    private double horizontallifted = 0.5;
+    private double horizontalmiddle = 0.65;
     private double horizontalextended = 1;
     private String horizontalpos = "back";
     private String liftedpos = "lifted";
     private boolean running = false;
+    private double highposarm = 0.6;
 
     public enum robotState {
         IDLE,
@@ -125,7 +126,7 @@ public class TeleOp extends LinearOpMode {
                            robotMode = robotMode.AUTOCYCLE;
                            timer.reset();
                        }
-                       if (gamepad1.a) {
+                       if (gamepad1.a && gamepad1.start == false) {
                            robot.lift.setTargetHeight(idle);
                            robot.intake.liftArm();
                            robot.intake.closeClaw();
@@ -136,6 +137,7 @@ public class TeleOp extends LinearOpMode {
                            robotState = robotState.IDLE;
                            timer.reset();
                        }
+
                    }
 
     //Horizontal Slides Extend/Retract
@@ -203,15 +205,17 @@ public class TeleOp extends LinearOpMode {
                            horizontalpos = "back";
                            robot.lift.setHorizontalPosition(horizontalback);
                            robot.intake.dropArm();
-                           robot.intake.openClaw();
                            robot.lift.setTargetHeight(intaking);
                            robot.intake.intake(1);
+                           sleep(150);
+                           robot.intake.openClaw();
                            if (timer.milliseconds() > 500) {
-                               if (gamepad1.left_bumper || robot.intake.getDistance() > 3) {
+                               if (gamepad1.left_bumper || robot.intake.getDistance() < 3) {
                                    robot.intake.closeClaw();
                                    robot.intake.stopIntake();
-                                   robotState = robotState.GRABBED;
-                                   timer.reset();
+                                   sleep(300);
+                                       robotState = robotState.GRABBED;
+                                       timer.reset();
                                }
                            }
                            break;
@@ -230,7 +234,7 @@ public class TeleOp extends LinearOpMode {
                                }
                                if (gamepad2.dpad_up) {
                                    robot.lift.setTargetHeight(up);
-                                   robot.intake.centerArm();
+                                   robot.intake.setArmPos(highposarm);
                                    timer.reset();
                                    robotState = robotState.LIFTED;
                                    armup = true;
@@ -288,19 +292,24 @@ public class TeleOp extends LinearOpMode {
                                    robotState = robotState.GRABBED;
                                }
                                if (gamepad1.left_bumper) {
-                                   robot.lift.setTargetHeight(robot.lift.getCurrentHeight() - droppedvalue);
+                                   if(liftedpos == "lifted") {
+                                       robot.lift.setTargetHeight(robot.lift.getCurrentHeight() - droppedvalue);
+                                   }
                                    timer.reset();
                                    robotState = robotState.DROPPED;
                                }
                                if (gamepad2.dpad_up) {
                                    robot.lift.setTargetHeight(up);
+                                   robot.intake.setArmPos(highposarm);
                                    timer.reset();
                                }
                                if (gamepad2.dpad_left) {
                                    robot.lift.setTargetHeight(low);
+                                   robot.intake.centerArm();
                                }
                                if (gamepad2.dpad_right) {
                                    robot.lift.setTargetHeight(mid);
+                                   robot.intake.centerArm();
                                }
                            }
                            break;
@@ -448,7 +457,7 @@ public class TeleOp extends LinearOpMode {
                            robot.intake.fullyOpenClaw();
                            robot.lift.setTargetHeight(intaking);
                            if (timer.milliseconds() > 500) {
-                               if (gamepad1.left_bumper || robot.intake.getDistance() > 3) {
+                               if (gamepad1.left_bumper || robot.intake.getDistance() < 3) {
                                    robot.intake.closeClaw();
                                    robotState = robotState.GRABBED;
                                    timer.reset();
@@ -470,7 +479,7 @@ public class TeleOp extends LinearOpMode {
                                }
                                if (gamepad2.dpad_up) {
                                    robot.lift.setTargetHeight(up);
-                                   robot.intake.centerArm();
+                                   robot.intake.setArmPos(highposarm);
                                    timer.reset();
                                    robotState = robotState.LIFTED;
                                    armup = true;
@@ -534,13 +543,16 @@ public class TeleOp extends LinearOpMode {
                                }
                                if (gamepad2.dpad_up) {
                                    robot.lift.setTargetHeight(up);
+                                   robot.intake.setArmPos(highposarm);
                                    timer.reset();
                                }
                                if (gamepad2.dpad_left) {
                                    robot.lift.setTargetHeight(low);
+                                   robot.intake.centerArm();
                                }
                                if (gamepad2.dpad_right) {
                                    robot.lift.setTargetHeight(mid);
+                                   robot.intake.centerArm();
                                }
                            }
                            break;
@@ -569,8 +581,6 @@ public class TeleOp extends LinearOpMode {
 
                    }
                    break;
-
-
 
 
 
@@ -623,7 +633,7 @@ public class TeleOp extends LinearOpMode {
                            robot.intake.fullyOpenClaw();
                            timer.reset();
                        }
-                       while (running = true) {
+                       while (running == true) {
                            robot.intake.centerArm();
                            robot.lift.setHorizontalPosition(horizontalextended);
                            sleep(200);
@@ -665,6 +675,10 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("armup?", armup);
             telemetry.addData("lowheight?", lowheight);
             telemetry.addData("arm timer", armtimer.milliseconds());
+            telemetry.addData("mode", robotMode);
+            telemetry.addData("liftedpos", liftedpos);
+            telemetry.addData("horizontalpos", horizontalpos);
+            telemetry.addData("horzontalservopos", robot.lift.horizontalServo1.getPosition());
             robot.update();
         }
     }

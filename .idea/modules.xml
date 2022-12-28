@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PowerPlayDec25NewCode.iml" filepath="$PROJECT_DIR$/.idea/modules/PowerPlayDec25NewCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.main.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayDec25NewCode.FtcRobotController.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayDec25NewCode.MeepMeepTesting.iml" filepath="$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayDec25NewCode.MeepMeepTesting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayDec25NewCode.MeepMeepTesting.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayDec25NewCode.MeepMeepTesting.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayDec25NewCode.MeepMeepTesting.test.iml" filepath="$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayDec25NewCode.MeepMeepTesting.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.main.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayDec25NewCode.TeamCode.unitTest.iml" />
+    </modules>
+  </component>
+</project>

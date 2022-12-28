@@ -64,17 +64,17 @@ public class Lift implements Subsystem {
 
     @Override
     public void update() {
-        MotionState state = profile.get(mpTimer.seconds());
+        //MotionState state = profile.get(mpTimer.seconds());
 
-        double instantTargetPosition = state.getX();
+        //double instantTargetPosition = state.getX();
 
-        //PID = PIDController(targetHeight, currentHeight);
+        PID = PIDController(targetHeight, currentHeight);
 
-        PID = PIDController(instantTargetPosition, currentHeight);
+        //PID = PIDController(instantTargetPosition, currentHeight);
 
 
-        if (targetHeight > 1000) {
-            targetHeight = 1000;
+        if (targetHeight > 1900) {
+            targetHeight = 1900;
         }
         currentHeight = getCurrentHeight();
 
@@ -82,7 +82,7 @@ public class Lift implements Subsystem {
             setLiftPower(0);
         } else if (motor1.getPower() > 0.5 && motor1.getCurrent(CurrentUnit.AMPS) > 10) {
             setLiftPower(-1);
-        } else if (Math.abs(targetHeight - currentHeight) < 5) {
+        } else if (Math.abs(targetHeight - currentHeight) < 50) {
             setLiftPower(ff);
         } else {
             setLiftPower(PID);
@@ -147,19 +147,11 @@ public class Lift implements Subsystem {
     public void setTargetHeight(double height) {
         targetHeight = height;
 
-        profile = MotionProfileGenerator.generateSimpleMotionProfile(
-                new MotionState(0, 0, 0),
-                new MotionState(targetHeight, 0, 0),
-                MAX_VEL,
-                MAX_ACCEL,
-                100
-        );
-        mpTimer.reset();
     }
 
     public void setHorizontalPosition(double distance) {
         horizontalServo1.setPosition(distance);
-        horizontalServo2.setPosition(-distance);
+        horizontalServo2.setPosition(1-distance);
     }
 
 }

@@ -17,12 +17,12 @@ public class Intake implements Subsystem {
     //Arm constants
     public double liftedArm = 1;
     public double droppedArm = 0.1;
-    public double centeredArm = 0.6;
+    public double centeredArm = 0.5;
 
     //Claw constants
-    private double openedClaw = 0.52;
+    private double openedClaw = 0.415;
     private double closedClaw = 0.242;
-    private double fullyOpen = 0.6;
+    private double fullyOpen = 0.53;
 
     public Servo clawServoB;
     public Servo clawServo;
@@ -30,8 +30,8 @@ public class Intake implements Subsystem {
     public Servo armServo2;
     public CRServo intakeServo1;
     public CRServo intakeServo2;
-    public CRServo intakeServo3;
-    public CRServo intakeServo4;
+//    public CRServo intakeServo3;
+//    public CRServo intakeServo4;
     private RevColorSensorV3 colorRangeSensor;
 
     public Intake(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -41,8 +41,8 @@ public class Intake implements Subsystem {
         armServo2 = hardwareMap.get(Servo.class, "arm2");
         intakeServo1 = hardwareMap.get(CRServo.class, "intake1");
         intakeServo2 = hardwareMap.get(CRServo.class, "intake2");
-        intakeServo3 = hardwareMap.get(CRServo.class, "intake3");
-        intakeServo4 = hardwareMap.get(CRServo.class, "intake4");
+//        intakeServo3 = hardwareMap.get(CRServo.class, "intake3");
+//        intakeServo4 = hardwareMap.get(CRServo.class, "intake4");
         colorRangeSensor = hardwareMap.get(RevColorSensorV3.class, "distanceSensor");
     }
 
@@ -66,15 +66,15 @@ public class Intake implements Subsystem {
     public void intake(double power){
         intakeServo1.setPower(power);
         intakeServo2.setPower(-power);
-        intakeServo3.setPower(-power);
-        intakeServo4.setPower(power);
+//        intakeServo3.setPower(-power);
+//        intakeServo4.setPower(power);
     }
 
     public void stopIntake(){
         intakeServo1.setPower(0);
         intakeServo2.setPower(0);
-        intakeServo3.setPower(0);
-        intakeServo4.setPower(0);
+//        intakeServo3.setPower(0);
+//        intakeServo4.setPower(0);
     }
 
     public void setClawPos(double position){
